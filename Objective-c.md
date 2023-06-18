@@ -113,5 +113,64 @@ NSString *javaScriptCode = [NSString stringWithFormat:@"document.getElementById(
 }];
 ```
 
+## レビュー後のソース
+```
+#import <WebKit/WebKit.h>
+
+@interface YourViewController () <WKNavigationDelegate>
+
+@property (nonatomic, strong) WKWebView *webView;
+
+@end
+
+@implementation YourViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    // WKWebViewのインスタンス生成
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    self.webView.navigationDelegate = self;
+
+    // JSONデータの生成
+    NSDictionary *jsonData = @{@"key1": @"value1", @"key2": @"value2"};
+    NSError *error;
+    NSData *jsonPayload = [NSJSONSerialization dataWithJSONObject:jsonData options:0 error:&error];
+
+    // WKWebViewのリクエストを生成
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://example.com/submit"]];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:jsonPayload];
+
+    // リクエストをロード
+    [self.webView loadRequest:request];
+
+    // WKWebViewをビューに追加
+    [self.view addSubview:self.webView];
+}
+
+// ページの読み込み完了後に呼び出されるメソッド
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    // 表示先のフォームに値を入力するJavaScript
+    NSString *input1Value = @"Value 1";
+    NSString *input2Value = @"Value 2";
+
+    // input1とinput2というIDを持つフォーム要素に対して、値を設定
+    NSString *javaScriptCode = [NSString stringWithFormat:@"document.getElementById('input1').value = '%@'; document.getElementById('input2').value = '%@';", input1Value, input2Value];
+
+    [webView evaluateJavaScript:javaScriptCode completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        // JavaScriptの実行が完了した後に実行される処理
+        if (error) {
+            NSLog(@"JavaScript Error: %@", error);
+        } else {
+            NSLog(@"JavaScript executed successfully");
+        }
+    }];
+}
+
+@end
+```
+
 
 
