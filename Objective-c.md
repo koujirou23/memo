@@ -43,7 +43,7 @@ NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWit
 
 ## 表示するページのフォームにデータを入力
 WKWebViewを使用してJSONデータをPOSTし、表示先のページのフォームに値を入力するには、　　
-JavaScriptを使用して以下の手順を実行します。　　
+JavaScriptを使用して以下の手順を実行します。　　　　
 WKWebViewのevaluateJavaScript:completionHandler:メソッドを使用してJavaScriptコードを実行します。　　
 このJavaScriptコードは、表示先のページのフォームに値を設定するために使用されます。　　
 ```
