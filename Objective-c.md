@@ -172,5 +172,70 @@ NSString *javaScriptCode = [NSString stringWithFormat:@"document.getElementById(
 @end
 ```
 
+## WKWebViewでJavaScriptを実行するしか方法はなさそう
+```
+#import <WebKit/WebKit.h>
+
+@interface YourViewController () <WKNavigationDelegate>
+
+@property (nonatomic, strong) WKWebView *webView;
+
+@end
+
+@implementation YourViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+
+    // WKWebViewのインスタンス生成
+    self.webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, 320, 480)];
+    self.webView.navigationDelegate = self;
+
+    // JSONデータの生成
+    NSDictionary *jsonData = @{@"key1": @"value1", @"key2": @"value2"};
+    NSError *error;
+    NSData *jsonPayload = [NSJSONSerialization dataWithJSONObject:jsonData options:0 error:&error];
+
+    // WKWebViewのリクエストを生成
+    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://example.com/submit"]];
+    request.HTTPMethod = @"POST";
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:jsonPayload];
+
+    // リクエストをロード
+    [self.webView loadRequest:request];
+
+    // WKWebViewをビューに追加
+    [self.view addSubview:self.webView];
+}
+
+// ページの読み込み完了後に呼び出されるメソッド
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    // JSONデータを表示先のフォームに値を入力するJavaScript
+    NSString *javaScriptCode = @"\
+        var jsonData = %@; \
+        document.getElementById('input1').value = jsonData.key1; \
+        document.getElementById('input2').value = jsonData.key2; \
+    ";
+    
+    // JSONデータをJavaScriptコードに埋め込む
+    NSDictionary *jsonData = @{@"key1": @"value1", @"key2": @"value2"};
+    NSData *jsonDataEncoded = [NSJSONSerialization dataWithJSONObject:jsonData options:0 error:nil];
+    NSString *jsonDataString = [[NSString alloc] initWithData:jsonDataEncoded encoding:NSUTF8StringEncoding];
+    NSString *formattedJavaScriptCode = [NSString stringWithFormat:javaScriptCode, jsonDataString];
+
+    // JavaScriptを実行
+    [webView evaluateJavaScript:formattedJavaScriptCode completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        if (error) {
+            NSLog(@"JavaScript Error: %@", error);
+        } else {
+            NSLog(@"JavaScript executed successfully");
+        }
+    }];
+}
+
+@end
+```
+
 
 
