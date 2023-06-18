@@ -42,10 +42,10 @@ NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWit
 これにより、リクエストにJSONデータを含んでいることを示すためのヘッダーが設定されます。
 
 ## 表示するページのフォームにデータを入力
-WKWebViewを使用してJSONデータをPOSTし、表示先のページのフォームに値を入力するには、　　
-JavaScriptを使用して以下の手順を実行します。　　　　
-WKWebViewのevaluateJavaScript:completionHandler:メソッドを使用してJavaScriptコードを実行します。　　
-このJavaScriptコードは、表示先のページのフォームに値を設定するために使用されます。　　
+WKWebViewを使用してJSONデータをPOSTし、表示先のページのフォームに値を入力するには、  
+JavaScriptを使用して以下の手順を実行します。  
+WKWebViewのevaluateJavaScript:completionHandler:メソッドを使用してJavaScriptコードを実行します。  
+このJavaScriptコードは、表示先のページのフォームに値を設定するために使用されます  
 ```
 NSString *input1Value = @"Value 1";
 NSString *input2Value = @"Value 2";
@@ -61,15 +61,16 @@ NSString *javaScriptCode = [NSString stringWithFormat:@"document.getElementById(
     }
 }];
 ```
-上記の例では、input1とinput2というIDを持つフォーム要素に対して、input1Valueとinput2Valueの値を設定しています。　　javaScriptCodeには、フォームに値を設定するためのJavaScriptコードが格納されています。　　
-　　
-evaluateJavaScript:completionHandler:メソッドを呼び出し、WKWebViewでJavaScriptコードを実行します。　　
-コンプリーションハンドラー内で、JavaScriptの実行が成功したかどうかを確認できます。　　
-　　
-注意点として、JavaScriptを使用してフォームに値を設定するためには、表示先のページに対して操作が可能である必要があります。　　
-また、フォーム要素のIDやセレクタが正確であることを確認してください。　　
-　　
-以上の手順を実行することで、Objective-CのWKWebViewを使用してJSONデータをPOSTし、　　
+上記の例では、input1とinput2というIDを持つフォーム要素に対して、input1Valueとinput2Valueの値を設定しています。  
+javaScriptCodeには、フォームに値を設定するためのJavaScriptコードが格納されています。  
+  
+evaluateJavaScript:completionHandler:メソッドを呼び出し、WKWebViewでJavaScriptコードを実行します。  
+コンプリーションハンドラー内で、JavaScriptの実行が成功したかどうかを確認できます。  
+  
+注意点として、JavaScriptを使用してフォームに値を設定するためには、表示先のページに対して操作が可能である必要があります。  
+また、フォーム要素のIDやセレクタが正確であることを確認してください。  
+  
+以上の手順を実行することで、Objective-CのWKWebViewを使用してJSONデータをPOSTし、  
 表示先のページのフォームに値を入力することができます。
 
 
