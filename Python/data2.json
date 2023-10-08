@@ -1,17 +1,21 @@
 {
-    "age": 30,
-    "hobbies": ["reading", "swimming", "traveling"],
     "address": {
         "street": "123 Main St",
         "city": "New York",
         "state": "NY",
         "zip": "10001"
     },
+    "age": 30,
     "city": "New York",
-    "name": "John",
     "firstName": "taro",
+    "hobbies": [
+        "reading",
+        "swimming",
+        "traveling"
+    ],
     "lastName": "tanaka",
     "midleName": "",
+    "name": "John",
     "personalData": {
         "name": "Smith",
         "age": 30,

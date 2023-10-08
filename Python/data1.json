@@ -1,8 +1,4 @@
 {
-    "name": "John",
-    "age": 30,
-    "city": "New York",
-    "hobbies": ["reading", "swimming", "traveling"],
     "address": {
         "street": "123 Main St",
         "street2": "",
@@ -11,6 +7,14 @@
         "state": "NY",
         "zip": "10001"
     },
+    "age": 30,
+    "city": "New York",
+    "hobbies": [
+        "reading",
+        "swimming",
+        "traveling"
+    ],
+    "name": "John",
     "personalData": {
         "name": "Smith",
         "age": 30,
