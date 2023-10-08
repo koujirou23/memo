@@ -1,0 +1,23 @@
+swift
+class MyClass {
+    func myMethod(completion: () -> Void) {
+        // 何らかの処理
+
+        // [weak self]を使用して、弱参照としてselfをキャプチャ
+        DispatchQueue.main.async { [weak self] in
+            // この時点でselfは弱参照となっているため、循環参照を回避できる
+            self?.anotherMethod()
+
+            // もしくは、弱参照をアンラップして非オプショナルとして使用することもできる
+            if let strongSelf = self {
+                strongSelf.anotherMethod()
+            }
+            
+            completion()
+        }
+    }
+
+    func anotherMethod() {
+        // 何らかの処理
+    }
+}
