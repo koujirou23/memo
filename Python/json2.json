@@ -1,0 +1,15 @@
+{
+    "age": 30,
+    "hobbies": ["reading", "swimming", "traveling"],
+    "address": {
+        "street": "123 Main St",
+        "city": "New York",
+        "state": "NY",
+        "zip": "10001"
+    },
+    "city": "New York",
+    "name": "John",
+    "firstName": "taro",
+    "lastName": "tanaka",
+    "midleName": ""
+}
