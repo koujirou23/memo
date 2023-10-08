@@ -4,6 +4,9 @@ import json
 import os
 import difflib
 
+# deepdiffインストール方法
+# pip install deepdiff
+
 def sort_jsonFile(json1, json2):
     with open(json1, encoding='utf-8') as file1, open(json2, encoding='utf-8') as file2:
         data1 = json.load(file1)
